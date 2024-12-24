@@ -13,7 +13,7 @@ public class SystemAlertEvent extends NotificationEvent{
     private AlertLevel alertLevel;
 
     public SystemAlertEvent(String message, String recipient, AlertLevel alertLevel) {
-        super("SYSTEM_ALERT", message, "SYSTEM", recipient); // Passing null as sender
+        super("SYSTEM_ALERT", message, "SYSTEM", recipient);
         this.alertLevel = alertLevel;
     }
 
