@@ -2,9 +2,11 @@ package org.ushan.realtimenotificationservice.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.stereotype.Service;
 import org.ushan.realtimenotificationservice.events.NotificationEvent;
 import org.ushan.realtimenotificationservice.handlers.DynamicHandlerRegistry;
 
+@Service
 public class NotificationService {
 
     private final SimpMessagingTemplate messagingTemplate;
