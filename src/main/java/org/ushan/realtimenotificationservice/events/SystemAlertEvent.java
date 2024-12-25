@@ -20,7 +20,7 @@ public class SystemAlertEvent extends NotificationEvent{
     /**
      * Enum representing the levels of alerts in the system.
      */
-    public static enum AlertLevel{
+    public enum AlertLevel{
         DEBUG,       // Detailed information for debugging purposes
         TRACE,       // Fine-grained details capturing the flow of the program
         INFO,        // General informational messages
