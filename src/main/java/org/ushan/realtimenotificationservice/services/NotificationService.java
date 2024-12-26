@@ -8,7 +8,6 @@ import org.ushan.realtimenotificationservice.handlers.DynamicHandlerRegistry;
 
 @Service
 public class NotificationService {
-
     private final SimpMessagingTemplate messagingTemplate;
     private final DynamicHandlerRegistry handlerRegistry;
 
@@ -18,8 +17,11 @@ public class NotificationService {
         this.handlerRegistry = handlerRegistry;
     }
 
-    public void sendNotification(NotificationEvent event, String topic) {
+    public void sendNotificationToUser(NotificationEvent event, String userId) {
+        String userTopic = "/user/" + userId + "/queue/notifications";
         handlerRegistry.handleEvent(event);
-        messagingTemplate.convertAndSend(topic, event);
+        messagingTemplate.convertAndSendToUser(userId, userTopic, event);
     }
+
+
 }
