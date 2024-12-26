@@ -9,14 +9,6 @@ import org.ushan.realtimenotificationservice.events.NotificationEvent;
 public interface NotificationHandler {
 
     /**
-     * Determines if the handler can process the given event type.
-     *
-     * @param eventType the type of the event
-     * @return {@code true} if the handler supports the event type, otherwise {@code false}
-     */
-    boolean canHandle(String eventType);
-
-    /**
      * Processes the given notification event.
      *
      * @param event the notification event to handle
