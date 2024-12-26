@@ -1,13 +1,14 @@
-package org.ushan.realtimenotificationservice.events;
+package org.ushan.realtimenotificationservice.events.custom;
 
 import lombok.*;
+import org.ushan.realtimenotificationservice.events.NotificationEvent;
 
 @Data
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class FriendRequestEvent extends NotificationEvent{
+public class FriendRequestEvent extends NotificationEvent {
 
     private FriendRequestType friendRequestType;
     public FriendRequestEvent(String sender, String recipient, String message, FriendRequestType friendRequestType) {

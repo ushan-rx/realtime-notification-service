@@ -1,6 +1,7 @@
-package org.ushan.realtimenotificationservice.events;
+package org.ushan.realtimenotificationservice.events.custom;
 
 import lombok.*;
+import org.ushan.realtimenotificationservice.events.NotificationEvent;
 
 
 @Data
@@ -8,7 +9,7 @@ import lombok.*;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class SystemAlertEvent extends NotificationEvent{
+public class SystemAlertEvent extends NotificationEvent {
 
     private AlertLevel alertLevel;
 
