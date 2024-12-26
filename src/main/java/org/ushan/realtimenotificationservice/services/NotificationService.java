@@ -23,5 +23,9 @@ public class NotificationService {
         messagingTemplate.convertAndSendToUser(userId, userTopic, event);
     }
 
-
+    public void sendBroadcastNotification(NotificationEvent event) {
+        String broadcastTopic = "/topic/notifications";
+        handlerRegistry.handleEvent(event);
+        messagingTemplate.convertAndSend(broadcastTopic, event);
+    }
 }

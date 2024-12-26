@@ -24,5 +24,8 @@ public class NotificationController {
         notificationService.sendNotificationToUser(event, userId);
     }
 
-
+    @PostMapping("/broadcast")
+    public void sendBroadcastNotification(@Validated @RequestBody NotificationEvent event) {
+        notificationService.sendBroadcastNotification(event);
+    }
 }
