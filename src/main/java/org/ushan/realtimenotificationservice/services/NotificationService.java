@@ -3,29 +3,26 @@ package org.ushan.realtimenotificationservice.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
+import org.ushan.realtimenotificationservice.events.BroadcastNotification;
 import org.ushan.realtimenotificationservice.events.NotificationEvent;
-import org.ushan.realtimenotificationservice.handlers.DynamicHandlerRegistry;
+import org.ushan.realtimenotificationservice.events.UserSpecificNotification;
 
 @Service
 public class NotificationService {
     private final SimpMessagingTemplate messagingTemplate;
-    private final DynamicHandlerRegistry handlerRegistry;
 
     @Autowired
-    public NotificationService(SimpMessagingTemplate messagingTemplate, DynamicHandlerRegistry handlerRegistry) {
+    public NotificationService(SimpMessagingTemplate messagingTemplate) {
         this.messagingTemplate = messagingTemplate;
-        this.handlerRegistry = handlerRegistry;
     }
 
-    public void sendNotificationToUser(NotificationEvent event, String userId) {
-        String userTopic = "/user/" + userId + "/queue/notifications";
-        handlerRegistry.handleEvent(event);
-        messagingTemplate.convertAndSendToUser(userId, userTopic, event);
+    public <T extends UserSpecificNotification> void sendNotificationToUser(T event, String userId) {
+        String userTopic = "/user/" + userId + "/queue";
+        event.handle(messagingTemplate, userTopic, userId);
     }
 
-    public void sendBroadcastNotification(NotificationEvent event) {
+    public  <T extends BroadcastNotification> void sendBroadcastNotification(T event) {
         String broadcastTopic = "/topic/notifications";
-        handlerRegistry.handleEvent(event);
-        messagingTemplate.convertAndSend(broadcastTopic, event);
+        event.handle(messagingTemplate, broadcastTopic);
     }
 }

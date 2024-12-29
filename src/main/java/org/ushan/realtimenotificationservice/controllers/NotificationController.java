@@ -1,31 +1,35 @@
 package org.ushan.realtimenotificationservice.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
+import org.ushan.realtimenotificationservice.events.BroadcastNotification;
 import org.ushan.realtimenotificationservice.events.NotificationEvent;
+import org.ushan.realtimenotificationservice.events.UserSpecificNotification;
 import org.ushan.realtimenotificationservice.services.NotificationService;
 
-@Controller
+@RestController
+@RequestMapping("api/notifications")
 public class NotificationController {
 
     private final NotificationService notificationService;
 
-    @Autowired
+     @Autowired
     public NotificationController(NotificationService notificationService) {
         this.notificationService = notificationService;
     }
 
     @PostMapping("/custom/{userId}")
-    public void sendCustomNotification(@PathVariable String userId, @RequestBody NotificationEvent event) {
+    public <T extends UserSpecificNotification> ResponseEntity<String> sendCustomNotification(@PathVariable String userId, @RequestBody T event) {
         notificationService.sendNotificationToUser(event, userId);
+        return ResponseEntity.ok("Notification sent to user: " + userId);
     }
 
     @PostMapping("/broadcast")
-    public void sendBroadcastNotification(@Validated @RequestBody NotificationEvent event) {
+    public <T extends BroadcastNotification> ResponseEntity<String> sendBroadcastNotification(@Validated @RequestBody T event) {
+        System.out.println(event);
         notificationService.sendBroadcastNotification(event);
+        return ResponseEntity.ok("Broadcast notification sent.");
     }
 }

@@ -1,6 +1,8 @@
 package org.ushan.realtimenotificationservice.events.custom;
 
 import lombok.*;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.ushan.realtimenotificationservice.events.BroadcastNotification;
 import org.ushan.realtimenotificationservice.events.NotificationEvent;
 
 
@@ -9,13 +11,20 @@ import org.ushan.realtimenotificationservice.events.NotificationEvent;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class SystemAlertEvent extends NotificationEvent {
+public class SystemAlertEvent extends BroadcastNotification {
 
     private AlertLevel alertLevel;
 
-    public SystemAlertEvent(String message, String recipient, AlertLevel alertLevel) {
-        super("SYSTEM_ALERT", message, "SYSTEM", recipient);
+    public SystemAlertEvent(String message, AlertLevel alertLevel) {
+        super("SYSTEM_ALERT", message, "SYSTEM");
         this.alertLevel = alertLevel;
+    }
+
+    @Override
+    public void handle(SimpMessagingTemplate messagingTemplate, String broadcastTopic) {
+        // Send broadcast
+        messagingTemplate.convertAndSend(broadcastTopic + "notifications", this);
+        System.out.println("Sending SystemAlertEvent as broadcast."+ broadcastTopic + "notifications" + this);
     }
 
     /**
