@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.ushan.realtimenotificationservice.events.BroadcastNotification;
-import org.ushan.realtimenotificationservice.events.NotificationEvent;
 import org.ushan.realtimenotificationservice.events.UserSpecificNotification;
 import org.ushan.realtimenotificationservice.services.NotificationService;
 

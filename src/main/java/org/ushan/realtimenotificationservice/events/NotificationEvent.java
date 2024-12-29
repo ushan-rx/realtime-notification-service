@@ -2,13 +2,10 @@ package org.ushan.realtimenotificationservice.events;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 
-import java.time.LocalDateTime;
 import java.util.Map;
 
 @Data

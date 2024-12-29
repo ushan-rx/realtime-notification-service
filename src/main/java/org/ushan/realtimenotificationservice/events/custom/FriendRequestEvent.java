@@ -3,7 +3,6 @@ package org.ushan.realtimenotificationservice.events.custom;
 import lombok.*;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.ushan.realtimenotificationservice.events.NotificationEvent;
 import org.ushan.realtimenotificationservice.events.UserSpecificNotification;
 
 @Data
