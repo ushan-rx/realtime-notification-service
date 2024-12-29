@@ -21,7 +21,7 @@ public class NotificationController {
     }
 
     @PostMapping("/custom/{userId}")
-    public <T extends UserSpecificNotification> ResponseEntity<String> sendCustomNotification(@PathVariable String userId, @RequestBody T event) {
+    public <T extends UserSpecificNotification> ResponseEntity<String> sendCustomNotification(@PathVariable String userId, @Validated @RequestBody T event) {
         notificationService.sendNotificationToUser(event, userId);
         return ResponseEntity.ok("Notification sent to user: " + userId);
     }

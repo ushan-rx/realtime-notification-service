@@ -22,7 +22,7 @@ public class NotificationService {
     }
 
     public  <T extends BroadcastNotification> void sendBroadcastNotification(T event) {
-        String broadcastTopic = "/topic/notifications";
+        String broadcastTopic = "/topic";
         event.handle(messagingTemplate, broadcastTopic);
     }
 }

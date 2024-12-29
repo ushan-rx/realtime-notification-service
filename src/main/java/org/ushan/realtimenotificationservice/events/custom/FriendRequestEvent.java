@@ -1,6 +1,7 @@
 package org.ushan.realtimenotificationservice.events.custom;
 
 import lombok.*;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.ushan.realtimenotificationservice.events.NotificationEvent;
 import org.ushan.realtimenotificationservice.events.UserSpecificNotification;
@@ -12,9 +13,10 @@ import org.ushan.realtimenotificationservice.events.UserSpecificNotification;
 @AllArgsConstructor
 public class FriendRequestEvent extends UserSpecificNotification {
 
+    @NotNull(value = "Friend request type cannot be null")
     private FriendRequestType friendRequestType;
 
-    public FriendRequestEvent(String sender, String recipient, String message, FriendRequestType friendRequestType, String userId) {
+    public FriendRequestEvent(String sender, String recipient, String message, @NotNull FriendRequestType friendRequestType, String userId) {
         super("FRIEND_REQUEST", message, sender, recipient, userId);
         this.friendRequestType = friendRequestType;
     }

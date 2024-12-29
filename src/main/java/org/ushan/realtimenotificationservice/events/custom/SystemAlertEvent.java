@@ -1,6 +1,7 @@
 package org.ushan.realtimenotificationservice.events.custom;
 
 import lombok.*;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.ushan.realtimenotificationservice.events.BroadcastNotification;
 import org.ushan.realtimenotificationservice.events.NotificationEvent;
@@ -13,9 +14,10 @@ import org.ushan.realtimenotificationservice.events.NotificationEvent;
 @AllArgsConstructor
 public class SystemAlertEvent extends BroadcastNotification {
 
+    @NotNull(value = "Alert level cannot be null")
     private AlertLevel alertLevel;
 
-    public SystemAlertEvent(String message, AlertLevel alertLevel) {
+    public SystemAlertEvent(String message, @NotNull AlertLevel alertLevel) {
         super("SYSTEM_ALERT", message, "SYSTEM");
         this.alertLevel = alertLevel;
     }
@@ -23,7 +25,7 @@ public class SystemAlertEvent extends BroadcastNotification {
     @Override
     public void handle(SimpMessagingTemplate messagingTemplate, String broadcastTopic) {
         // Send broadcast
-        messagingTemplate.convertAndSend(broadcastTopic + "notifications", this);
+        messagingTemplate.convertAndSend(broadcastTopic + "/notifications", this);
         System.out.println("Sending SystemAlertEvent as broadcast."+ broadcastTopic + "notifications" + this);
     }
 
